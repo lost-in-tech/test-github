@@ -38,8 +38,12 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - name: Branch Information ${GITHUB_REF#refs/heads/}
+      - name: Branch Information
+        if: github.event_name != 'pull_request'
         run: echo "${GITHUB_HEAD_REF || GITHUB_REF#refs/heads/}"
+      - name: Branch Information
+        if: github.event_name == 'pull_request'
+        run: echo "${GITHUB_HEAD_REF}"
 
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
