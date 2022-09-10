@@ -55,6 +55,7 @@ jobs:
         run: echo 'Application container image published successfully'
 
   staging-deployment:
+    name: Staging Deployment
     runs-on: ubuntu-latest
     environment: staging
     needs: [publish-container-image]
@@ -65,7 +66,7 @@ jobs:
         run: echo 'Staging deployment completed'
 
   production-deployment:
-    # The type of runner that the job will run on
+    name: Production Deployment
     runs-on: ubuntu-latest
     environment: staging
     needs: [staging-deployment]
