@@ -40,7 +40,7 @@ jobs:
     steps:
       - name: Branch Information
         if: github.event_name != 'pull_request'
-        run: echo "${GITHUB_HEAD_REF || GITHUB_REF#refs/heads/}"
+        run: echo "${GITHUB_REF#refs/heads/}"
       - name: Branch Information
         if: github.event_name == 'pull_request'
         run: echo "${GITHUB_HEAD_REF}"
