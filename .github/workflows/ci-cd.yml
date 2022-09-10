@@ -41,6 +41,21 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
 
+      - name: Build and test
+        run: echo 'Building and testing application'
+
+      - name: Build and publish container image
+        if: ${{ github.event_name != 'pull_request' }}
+        run: echo 'Build and publishing container'
+
+      - name: Deploy to staging
+        if: ${{ github.event_name != 'pull_request' }}
+        run: echo 'Staging deployment completed'
+
+      - name: Deploy to production
+        if: ${{ github.event_name != 'pull_request' }}
+        run: echo 'Production deployment completed'
+
       # Runs a single command using the runners shell
       - name: Run a one-line script
         run: echo Hello, world!
