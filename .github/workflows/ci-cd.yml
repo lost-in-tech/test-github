@@ -68,7 +68,7 @@ jobs:
   production-deployment:
     name: Production deployment
     runs-on: ubuntu-latest
-    environment: staging
+    environment: production
     needs: [staging-deployment]
 
     steps:
