@@ -35,7 +35,6 @@ jobs:
   build-and-test:
     name: Build and test
     runs-on: ubuntu-latest
-    needs: ["init"]
 
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
