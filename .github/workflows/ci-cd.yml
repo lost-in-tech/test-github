@@ -31,12 +31,6 @@ concurrency:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  init:
-    name: Initialize common parameters
-    outputs:
-      region: "ap-southeast-2"
-      app_name: "unicorn-app"
-
   # This workflow contains a single job called "build"
   build-and-test:
     name: Build and test
@@ -48,7 +42,10 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: Build and test
-        run: echo 'Application ${{ needs.init.outputs.region }} ${{needs.init.output.app_name}} built and tested successfully'
+        run: echo 'Application built and tested successfully'
+    outputs:
+      region: "ap-southeast-2"
+      app_name: "unicorn-app"
 
   publish-container-image:
     name: Publish container image
@@ -57,7 +54,7 @@ jobs:
     needs: [build-and-test]
     steps:
       - name: Build and publish container image
-        run: echo 'Application container image published successfully ${ JOB }'
+        run: echo 'Application container image published successfully ${{ needs.build-and-test.outputs.region }} ${{ needs.build-and-test.outputs.app_name }}'
 
   staging-deployment:
     name: Staging deployment
