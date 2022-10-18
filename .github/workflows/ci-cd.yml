@@ -60,11 +60,15 @@ jobs:
     runs-on: ubuntu-latest
     environment: staging
     needs: [publish-container-image]
+    if: ${{ github.event_name != 'pull_request' }}
 
     steps:
       - name: Deploy to staging
-        if: ${{ github.event_name != 'pull_request' }}
         run: echo 'Staging deployment completed'
+      - name: Tag
+        run: |
+          git tag stg-v1.${{github.run_number}}.${{github.run_attempt}}
+          git push --tags
 
   production-deployment:
     name: Production deployment
@@ -76,3 +80,7 @@ jobs:
       - name: Deploy to production
         if: ${{ github.event_name != 'pull_request' }}
         run: echo 'Production deployment completed'
+      - name: Tag
+        run: |
+          git tag prd-v1.${{github.run_number}}.${{github.run_attempt}}
+          git push --tags
