@@ -66,10 +66,10 @@ jobs:
       - name: Deploy to staging
         run: echo 'Staging deployment completed'
       - uses: actions/checkout@v3
-      - name: Tag
-        run: |
-          git tag stg-v1.${{github.run_number}}.${{github.run_attempt}}
-          git push --tags
+      - name: Git Version
+        uses: codacy/git-version@2.5.4
+        with:
+          prefix: "prod"
 
   production-deployment:
     name: Production deployment
@@ -82,7 +82,7 @@ jobs:
         if: ${{ github.event_name != 'pull_request' }}
         run: echo 'Production deployment completed'
       - uses: actions/checkout@v3
-      - name: Tag
-        run: |
-          git tag prd-v1.${{github.run_number}}.${{github.run_attempt}}
-          git push --tags
+      - name: Git Version
+        uses: codacy/git-version@2.5.4
+        with:
+          prefix: "prod"
